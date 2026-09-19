@@ -33,10 +33,8 @@ class TajHotel:
             bg=self.colors["main_bg"]
         )
 
-        # -----------------------------
         # Food Prices
-        # -----------------------------
-
+        
         self.prices = {
             "Drink": 700,
             "Burger King": 250,
@@ -50,9 +48,7 @@ class TajHotel:
 
         self.entries = {}
 
-        # -----------------------------
         # Output Variables
-        # -----------------------------
 
         self.output_vars = {
             "Order Number": tk.StringVar(),
@@ -62,9 +58,7 @@ class TajHotel:
             "Total": tk.StringVar(value="0.00")
         }
 
-        # -----------------------------
         # Order System
-        # -----------------------------
 
         self.order_number = 1001
 
@@ -74,9 +68,7 @@ class TajHotel:
 
         self.order_completed = False
 
-        # -----------------------------
         # Create GUI
-        # -----------------------------
 
         self.setup_styles()
 
@@ -96,9 +88,7 @@ class TajHotel:
             str(self.order_number)
         )
 
-    # =========================================================
     # STYLING
-    # =========================================================
 
     def setup_styles(self):
 
@@ -120,17 +110,13 @@ class TajHotel:
             font=("Arial", 11, "bold")
         )
 
-    # =========================================================
     # MENU BAR
-    # =========================================================
 
     def create_menu(self):
 
         menu_bar = tk.Menu(self.root)
 
-        # -----------------------------
         # File Menu
-        # -----------------------------
 
         file_menu = tk.Menu(
             menu_bar,
@@ -169,18 +155,11 @@ class TajHotel:
             menu=file_menu
         )
 
-        # -----------------------------
         # Order Menu
-        # -----------------------------
 
         order_menu = tk.Menu(
             menu_bar,
             tearoff=0
-        )
-
-        order_menu.add_command(
-            label="Calculate Price",
-            command=self.calculate_price
         )
 
         order_menu.add_command(
@@ -212,9 +191,7 @@ class TajHotel:
             menu=order_menu
         )
 
-        # -----------------------------
         # Calculator Menu
-        # -----------------------------
 
         calculator_menu = tk.Menu(
             menu_bar,
@@ -236,9 +213,7 @@ class TajHotel:
             menu=calculator_menu
         )
 
-        # -----------------------------
         # Help Menu
-        # -----------------------------
 
         help_menu = tk.Menu(
             menu_bar,
@@ -259,9 +234,7 @@ class TajHotel:
             menu=menu_bar
         )
 
-    # =========================================================
     # HEADER
-    # =========================================================
 
     def create_header(self):
 
@@ -279,9 +252,7 @@ class TajHotel:
 
         header.pack_propagate(False)
 
-        # -----------------------------
         # Hotel Title
-        # -----------------------------
 
         title = tk.Label(
             header,
@@ -305,9 +276,6 @@ class TajHotel:
 
         subtitle.pack()
 
-        # -----------------------------
-        # Digital Clock
-        # -----------------------------
 
         self.clock_label = tk.Label(
             header,
@@ -327,10 +295,8 @@ class TajHotel:
             anchor="center"
         )
 
-    # =========================================================
     # DIGITAL CLOCK
-    # =========================================================
-
+    
     def update_clock(self):
 
         current_time = datetime.now().strftime(
@@ -346,9 +312,7 @@ class TajHotel:
             self.update_clock
         )
 
-    # =========================================================
     # ORDER SECTION
-    # =========================================================
 
     def create_order_section(self):
 
@@ -364,9 +328,7 @@ class TajHotel:
             pady=8
         )
 
-        # =====================================================
         # LEFT FOOD ITEM FRAME
-        # =====================================================
 
         item_frame = tk.LabelFrame(
             main,
@@ -376,7 +338,7 @@ class TajHotel:
             bg=self.colors["left_bg"],
             bd=5,
             relief="ridge",
-            width=350
+            width=400
         )
 
         item_frame.pack(
@@ -406,6 +368,28 @@ class TajHotel:
                 sticky="w"
             )
 
+            # Price prompt - shows the unit price right in
+            # front of the product name
+
+            price_label = tk.Label(
+                item_frame,
+                text=f"₹{self.prices[item]}",
+                font=("Arial", 10, "bold"),
+                fg="#111827",
+                bg="#FFFFFF",
+                width=6,
+                anchor="center",
+                relief="sunken",
+                bd=1
+            )
+
+            price_label.grid(
+                row=row,
+                column=1,
+                padx=(0, 10),
+                pady=8
+            )
+
             entry = tk.Entry(
                 item_frame,
                 font=("Arial", 12),
@@ -417,16 +401,14 @@ class TajHotel:
 
             entry.grid(
                 row=row,
-                column=1,
+                column=2,
                 padx=10,
                 pady=8
             )
 
             self.entries[item] = entry
 
-        # =====================================================
         # MIDDLE BILL DETAILS FRAME
-        # =====================================================
 
         calc_frame = tk.LabelFrame(
             main,
@@ -493,9 +475,7 @@ class TajHotel:
                 pady=12
             )
 
-        # =====================================================
         # RIGHT ORDER SUMMARY
-        # =====================================================
 
         right_frame = tk.Frame(
             main,
@@ -541,10 +521,9 @@ class TajHotel:
             "Enter food quantities and calculate the order."
         )
 
-    # =========================================================
-    # CALCULATOR
-    # =========================================================
 
+    # CALCULATOR
+    
     def create_calculator(self):
 
         calculator_frame = tk.Frame(
@@ -653,9 +632,7 @@ class TajHotel:
             pady=5
         )
 
-    # =========================================================
     # CALCULATOR FUNCTION
-    # =========================================================
 
     def calculator_click(self, value):
 
@@ -725,9 +702,9 @@ class TajHotel:
                 value
             )
 
-    # =========================================================
+
     # CLEAR CALCULATOR
-    # =========================================================
+
 
     def clear_calculator(self):
 
@@ -736,17 +713,13 @@ class TajHotel:
             tk.END
         )
 
-    # =========================================================
     # FOCUS CALCULATOR
-    # =========================================================
 
     def focus_calculator(self):
 
         self.calculator_display.focus_set()
 
-    # =========================================================
     # GET QUANTITIES
-    # =========================================================
 
     def get_quantities(self):
 
@@ -785,9 +758,7 @@ class TajHotel:
 
         return quantities
 
-    # =========================================================
     # CALCULATE COST
-    # =========================================================
 
     def calculate_cost(self):
 
@@ -804,58 +775,11 @@ class TajHotel:
 
         return cost, quantities
 
-    # =========================================================
-    # CALCULATE PRICE
-    # =========================================================
 
-    def calculate_price(self):
-
-        result = self.calculate_cost()
-
-        if result is None:
-
-            return
-
-        cost, quantities = result
-
-        self.output_vars["Order Number"].set(
-            str(self.order_number)
-        )
-
-        self.output_vars["Cost"].set(
-            f"{cost:.2f}"
-        )
-
-        # Tax = 5%
-
-        tax = cost * 0.05
-
-        subtotal = cost
-
-        total = subtotal + tax
-
-        self.output_vars["Tax"].set(
-            f"{tax:.2f}"
-        )
-
-        self.output_vars["Sub Total"].set(
-            f"{subtotal:.2f}"
-        )
-
-        self.output_vars["Total"].set(
-            f"{total:.2f}"
-        )
-
-        self.show_order_summary(
-            quantities,
-            cost,
-            tax,
-            total
-        )
-
-    # =========================================================
-    # CALCULATE TOTAL
-    # =========================================================
+    # TOTAL BUTTON
+    # Calculates tax on top of the cost and produces the final
+    # bill (Sub Total + Tax = Total) in the main order summary
+    # panel, then saves the order.
 
     def calculate_total(self):
 
@@ -904,9 +828,7 @@ class TajHotel:
 
         self.save_current_order()
 
-    # =========================================================
-    # ORDER SUMMARY
-    # =========================================================
+    # ORDER SUMMARY (final bill, shown in the main window by Total)
 
     def show_order_summary(
         self,
@@ -990,9 +912,7 @@ class TajHotel:
             "Thank you for visiting Taj Hotel!"
         )
 
-    # =========================================================
     # SAVE CURRENT ORDER
-    # =========================================================
 
     def save_current_order(self):
 
@@ -1043,9 +963,9 @@ class TajHotel:
 
         return True
 
-    # =========================================================
+
     # NEXT ORDER
-    # =========================================================
+
 
     def new_order(self):
 
@@ -1089,9 +1009,9 @@ class TajHotel:
 
         self.history_index = -1
 
-    # =========================================================
+
     # CLEAR ORDER SCREEN
-    # =========================================================
+
 
     def clear_order_screen(self):
 
@@ -1130,9 +1050,9 @@ class TajHotel:
 
         self.clear_calculator()
 
-    # =========================================================
+
     # RESET ORDER
-    # =========================================================
+
 
     def reset_order(self):
 
@@ -1153,9 +1073,9 @@ class TajHotel:
 
         self.order_completed = False
 
-    # =========================================================
+
     # PREVIOUS ORDER
-    # =========================================================
+
 
     def previous_order(self):
 
@@ -1195,9 +1115,9 @@ class TajHotel:
             order
         )
 
-    # =========================================================
+
     # LOAD PREVIOUS ORDER
-    # =========================================================
+
 
     def load_order(self, order):
 
@@ -1305,9 +1225,9 @@ class TajHotel:
             "\nThis is a previous order."
         )
 
-    # =========================================================
+
     # ORDER HISTORY WINDOW
-    # =========================================================
+
 
     def show_order_history(self):
 
@@ -1444,9 +1364,9 @@ class TajHotel:
             pady=15
         )
 
-    # =========================================================
+
     # PRICE LIST
-    # =========================================================
+
 
     def show_price_list(self):
 
@@ -1543,9 +1463,9 @@ class TajHotel:
             pady=15
         )
 
-    # =========================================================
+
     # BOTTOM BUTTONS
-    # =========================================================
+
 
     def create_bottom_buttons(self):
 
@@ -1562,31 +1482,8 @@ class TajHotel:
             pady=(0, 12)
         )
 
-        # -----------------------------
-        # Price Button
-        # -----------------------------
 
-        price_button = tk.Button(
-            bottom,
-            text="Price",
-            font=("Arial", 12, "bold"),
-            bg=self.colors["button_bg"],
-            fg=self.colors["button_fg"],
-            width=9,
-            command=self.calculate_price,
-            relief="raised",
-            bd=3
-        )
-
-        price_button.pack(
-            side="left",
-            padx=10,
-            pady=8
-        )
-
-        # -----------------------------
         # Total Button
-        # -----------------------------
 
         total_button = tk.Button(
             bottom,
@@ -1606,9 +1503,9 @@ class TajHotel:
             pady=8
         )
 
-        # -----------------------------
+
         # Previous Order Button
-        # -----------------------------
+
 
         previous_button = tk.Button(
             bottom,
@@ -1628,9 +1525,9 @@ class TajHotel:
             pady=8
         )
 
-        # -----------------------------
+
         # Next Order Button
-        # -----------------------------
+
 
         next_button = tk.Button(
             bottom,
@@ -1650,9 +1547,7 @@ class TajHotel:
             pady=8
         )
 
-        # -----------------------------
         # History Button
-        # -----------------------------
 
         history_button = tk.Button(
             bottom,
@@ -1672,9 +1567,7 @@ class TajHotel:
             pady=8
         )
 
-        # -----------------------------
         # Reset Button
-        # -----------------------------
 
         reset_button = tk.Button(
             bottom,
@@ -1694,9 +1587,7 @@ class TajHotel:
             pady=8
         )
 
-        # -----------------------------
         # Quit Button
-        # -----------------------------
 
         quit_button = tk.Button(
             bottom,
@@ -1716,9 +1607,7 @@ class TajHotel:
             pady=8
         )
 
-    # =========================================================
     # ABOUT
-    # =========================================================
 
     def show_about(self):
 
@@ -1740,9 +1629,7 @@ class TajHotel:
             "• No Service Charge"
         )
 
-    # =========================================================
     # QUIT APPLICATION
-    # =========================================================
 
     def quit_app(self):
 
@@ -1756,9 +1643,9 @@ class TajHotel:
             self.root.destroy()
 
 
-# =============================================================
+
 # PROGRAM START
-# =============================================================
+
 
 if __name__ == "__main__":
 
